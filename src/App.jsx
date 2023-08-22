@@ -15,13 +15,14 @@ import BounceLoader from "react-spinners/BounceLoader";
 
 export class App extends Component {
   state={
-    images: [],
-    image: null,
-    webformatURL: [],
-    largeImageURL: '',
     page: 1,
     perPage: 12,
     searchQuery: '',
+
+    images: [],
+    webformatURL: [],
+    largeImageURL: '',
+
     isLoading: false,
     showModal: false,
   };
@@ -150,8 +151,8 @@ export class App extends Component {
           {this.state.showModal && (
             <Modal
               onClose={this.onClose}
-              largeImageURL={this.state.largeImageURL}
               showModal={this.state.showModal}
+              largeImageURL={this.state.largeImageURL}
               articles={this.state.images}
             />
           )}
