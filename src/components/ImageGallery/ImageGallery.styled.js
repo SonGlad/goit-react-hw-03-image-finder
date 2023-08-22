@@ -8,4 +8,5 @@ export const ImageGalleryStyles = styled.ul `
     align-items: center;
     justify-content: center;
     padding: 0;
+    margin: 0;
 `

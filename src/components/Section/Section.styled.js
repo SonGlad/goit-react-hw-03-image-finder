@@ -2,6 +2,7 @@ import { styled } from "styled-components";
 
 
 export const SectionStyle = styled.section`
+	min-height: 100vh;
     height: 100%;
     display: flex;
     align-items: center;

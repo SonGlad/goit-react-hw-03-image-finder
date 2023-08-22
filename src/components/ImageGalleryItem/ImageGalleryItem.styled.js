@@ -8,7 +8,7 @@ export const ImageGalleryItemStyles = styled.li`
     max-width: 360px;
     box-shadow: 0 20px 38px rgba(0,0,0, 0.1), 0 10px 20px;
 
-img {
+.image {
     display: block;
     max-width: 100%;
     background-position: 50%;
