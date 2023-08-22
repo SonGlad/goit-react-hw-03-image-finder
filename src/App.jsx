@@ -42,7 +42,7 @@ export class App extends Component {
       }));
 
       if (articles.hits.length > 0 && this.state.page === 1) {
-        toast.success('you are our images');
+        toast.success('We found your images!!');
         
       } else if(articles.hits.length === 0){
         throw new Error();
@@ -112,7 +112,7 @@ export class App extends Component {
         <Section>
 
           <Searchbar onSubmit={this.onFormSubmitData}/>
-          
+
           <Containers>
             <ImageGallery
               articles={this.state.images}
