@@ -110,7 +110,9 @@ export class App extends Component {
           theme="dark"
         />
         <Section>
+
           <Searchbar onSubmit={this.onFormSubmitData}/>
+          
           <Containers>
             <ImageGallery
               articles={this.state.images}
@@ -123,6 +125,7 @@ export class App extends Component {
                 isVisible={!this.state.isLoading} 
               />
             )}
+
             {this.state.isLoading && (
               <div className="loading-spinner"
                 style={{position:'fixed',

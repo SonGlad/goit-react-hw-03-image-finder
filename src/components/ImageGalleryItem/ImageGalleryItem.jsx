@@ -40,4 +40,4 @@ ImageGalleryItem.propTypes = {
     views: PropTypes.number.isRequired,
     downloads: PropTypes.number.isRequired,
     onClick: PropTypes.func.isRequired,
-  };
+};
