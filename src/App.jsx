@@ -27,52 +27,61 @@ export class App extends Component {
     showModal: false,
   };
 
-  
+
+  componentDidUpdate(prevProps, prevState) {
+    const {page, searchQuery} = this.state;
+    
+    if (prevState.page !== page || prevState.searchQuery !== searchQuery) {
+      this.fetchImages(searchQuery, page);
+    }
+  };
+
 
   fetchImages = async () => {
     const { searchQuery, page, perPage } = this.state;
     
     try {
       this.setState({ isLoading: true });
+
       const articles = await fetchArticles(searchQuery, page, perPage);
 
-      this.setState(prevState => ({
-        images: [...prevState.images, ...articles.hits],
-        page: prevState.page + 1,
-        isLoading: false,
-      }));
+      if (page === 1) {
+        this.setState({ images: articles.hits });
+      } 
+      else {
+        this.setState(set => ({
+          images: [...set.images, ...articles.hits],
+        }));
+      }
 
-      if (articles.hits.length > 0 && this.state.page === 1) {
+      if (articles.hits.length > 0 && page === 1) {
         toast.success('We found your images!!');
-        
-      } else if(articles.hits.length === 0){
+      } 
+      else if (articles.hits.length === 0) {
         throw new Error();
       }
-      
-    } catch (error) {
+
+    } 
+    catch (error) {
       toast.error('Sorry, there are no images matching your search query. Please try again.');
-      console.error("Error fetching articles:", error);
+      this.setState({ error: error.message });
+    } 
+    finally {
+      this.setState({ isLoading: false });
     }
-  }; 
-  
-  
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.searchQuery !== this.state.searchQuery) {
-      this.fetchImages();
-    };
-  }
+  };
 
 
   onFormSubmitData = searchQuery => {
     if (this.state.searchQuery === searchQuery) {
       return toast.warn(`You are already viewing ${searchQuery}`); 
     }
-    this.setState({
-      searchQuery: searchQuery.toLowerCase(),
-      page: 1,
-      images: [],
-      isLoading: true,
-    });
+    this.setState({ searchQuery, page: 1 });
+  };
+
+
+  onLoadMoreData = () => {
+    this.setState(set => ({ page: set.page + 1 }));
   };
 
 
@@ -122,7 +131,7 @@ export class App extends Component {
 
             {this.state.images.length > 0 && (
               <LoadMoreBtn 
-                onClick={this.fetchImages}
+                onClick={this.onLoadMoreData}
                 isVisible={!this.state.isLoading} 
               />
             )}
