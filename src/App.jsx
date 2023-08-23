@@ -49,8 +49,8 @@ export class App extends Component {
         this.setState({ images: articles.hits });
       } 
       else {
-        this.setState(set => ({
-          images: [...set.images, ...articles.hits],
+        this.setState(prevState => ({
+          images: [...prevState.images, ...articles.hits],
         }));
       }
 
@@ -73,11 +73,12 @@ export class App extends Component {
 
 
   onFormSubmitData = searchQuery => {
-    if (this.state.searchQuery.toLowerCase() === searchQuery.toLowerCase()) {
+    if ((this.state.searchQuery.toLowerCase()).trim() === 
+      (searchQuery.toLowerCase()).trim()) {
       return toast.warn(`You are already viewing ${searchQuery}`); 
     }
     this.setState({ 
-      searchQuery: searchQuery.toLowerCase(), 
+      searchQuery: (searchQuery.toLowerCase()).trim(), 
       page: 1,
       images: [],
     });
@@ -85,7 +86,7 @@ export class App extends Component {
 
 
   onLoadMoreData = () => {
-    this.setState(set => ({ page: set.page + 1 }));
+    this.setState(prevState => ({ page: prevState.page + 1 }));
   };
 
 
