@@ -30,7 +30,7 @@ export class App extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     const {page, searchQuery} = this.state;
-    
+
     if (prevState.page !== page || prevState.searchQuery !== searchQuery) {
       this.fetchImages(searchQuery, page);
     }
@@ -73,10 +73,14 @@ export class App extends Component {
 
 
   onFormSubmitData = searchQuery => {
-    if (this.state.searchQuery === searchQuery) {
+    if (this.state.searchQuery.toLowerCase() === searchQuery.toLowerCase()) {
       return toast.warn(`You are already viewing ${searchQuery}`); 
     }
-    this.setState({ searchQuery, page: 1 });
+    this.setState({ 
+      searchQuery: searchQuery.toLowerCase(), 
+      page: 1,
+      images: [],
+    });
   };
 
 
